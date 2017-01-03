@@ -99,6 +99,9 @@ class FeatureSelector(BaseEstimator, TransformerMixin):
         if self.relevant_features is None:
             raise RuntimeError("You have to call fit before.")
 
+        if len(self.relevant_features) == 0:
+            return pd.DataFrame([0] * X.shape[0], index=X.index)
+
         if isinstance(X, pd.DataFrame):
             return X.copy().loc[:, self.relevant_features]
         else:
